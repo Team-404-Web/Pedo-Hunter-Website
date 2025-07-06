@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilfe für Täter - Team 404</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <style>
+        .help-section {
+            max-width: 1000px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--matrix-green);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--matrix-green);
+            margin: 1rem auto 0;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .intro-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .warning-box {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .warning-box h3 {
+            color: #ff4444;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .warning-box p {
+            margin-bottom: 1rem;
+        }
+        
+        .help-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .help-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .help-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+        
+        .help-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .help-card h2 {
+            color: var(--matrix-green);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .help-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--matrix-green);
+            transition: width 0.3s ease;
+        }
+        
+        .help-card:hover h2::after {
+            width: 100px;
+        }
+        
+        .help-card ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .help-card ul li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+        
+        .resource-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        }
+        
+        .resource-card h3 {
+            color: var(--matrix-green);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-card p {
+            margin: 0.5rem 0;
+            color: #aaa;
+        }
+        
+        .resource-card a {
+            color: var(--matrix-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .emergency-btn {
+            display: inline-block;
+            background: #ff0000;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .emergency-btn:hover {
+            background: #cc0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .tab-container {
+            margin: 3rem 0;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+        
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            background: none;
+            color: #aaa;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab.active {
+            color: var(--matrix-green);
+            border-color: #333;
+            border-bottom: 1px solid var(--dark-bg);
+            margin-bottom: -1px;
+            background: var(--dark-bg);
+        }
+        
+        .tab:not(.active):hover {
+            color: #fff;
+            background: rgba(0, 255, 65, 0.1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 992px) {
+            .help-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .help-card {
+                padding: 1.5rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            
+            .tab {
+                border: 1px solid #333;
+                border-bottom: none;
+                text-align: left;
+            }
+            
+            .tab:last-child {
+                border-bottom: 1px solid #333;
+            }
+            
+            .tab.active {
+                border-bottom: 1px solid var(--dark-bg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TEAM 404</a>
+            <div class="nav-links">
+                <a href="start.html">Startseite</a>
+                <a href="team.html">Team</a>
+                <a href="social.html">Social Media</a>
+                <a href="praevention.html">Prävention</a>
+                <a href="kontakt.html">Kontakt</a>
+                <a href="opfer.html">Hilfe Opfer</a>
+                <a href="pedo.html" class="active">Hilfe Pedo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="help-section">
+        <h1 class="section-title">HILFE FÜR TÄTER</h1>
+        
+        <div class="intro-text">
+            <p>Wenn Sie sich zu Kindern sexuell hingezogen fühlen, aber keine Straftaten begehen möchten, finden Sie hier professionelle Hilfe. Es gibt Wege, mit diesen Gefühlen verantwortungsvoll umzugehen.</p>
+        </div>
+        
+        <div class="warning-box">
+            <h3>Wichtiger Hinweis</h3>
+            <p>Diese Seite richtet sich an Menschen, die sich zu Kindern hingezogen fühlen, aber keine Straftaten begehen möchten. Wenn Sie bereits straffällig geworden sind oder eine Straftat planen, wenden Sie sich bitte umgehend an eine Beratungsstelle oder an die Behörden.</p>
+        </div>
+        
+        <div class="help-container">
+            <div class="help-card">
+                <h2>Hilfe annehmen</h2>
+                <p>Wenn Sie sich zu Kindern hingezogen fühlen, bedeutet das nicht, dass Sie zum Täter werden müssen. Es gibt professionelle Hilfsangebote, die Sie dabei unterstützen können, verantwortungsvoll mit diesen Gefühlen umzugehen.</p>
+                
+                <p>Wichtige Schritte:</p>
+                <ul>
+                    <li><strong>Suchen Sie sich professionelle Hilfe:</strong> Therapeuten können Ihnen helfen, mit Ihren Gefühlen umzugehen.</li>
+                    <li><strong>Vermeiden Sie Risikosituationen:</strong> Meiden Sie Situationen, die zu Grenzüberschreitungen führen könnten.</li>
+                    <li><strong>Schützen Sie Kinder:</strong> Übernehmen Sie Verantwortung für Ihr Handeln.</li>
+                    <li><strong>Nutzen Sie anonyme Beratung:</strong> Es gibt spezialisierte Beratungsstellen, die anonym beraten.</li>
+                </ul>
+                
+                <p>Denken Sie daran: Hilfe in Anspruch zu nehmen, ist ein Zeichen von Stärke, nicht von Schwäche.</p>
+            </div>
+            
+            <div class="help-card">
+                <h2>Präventionsnetzwerk</h2>
+                <p>In Deutschland gibt es spezialisierte Beratungsstellen, die Menschen unterstützen, die sich zu Kindern hingezogen fühlen, aber keine Straftaten begehen möchten. Diese Angebote sind vertraulich und in der Regel anonym.</p>
+                
+                <p>Die Beratung kann Ihnen helfen:</p>
+                <ul>
+                    <li>Mit Ihren Gefühlen umzugehen</li>
+                    <li>Risikosituationen zu erkennen und zu vermeiden</li>
+                    <li>Strategien zur Selbstkontrolle zu entwickeln</li>
+                    <li>Bei der Suche nach therapeutischer Unterstützung</li>
+                </ul>
+                
+                <p>Niemand muss mit diesen Gefühlen allein bleiben. Professionelle Hilfe kann Ihnen dabei helfen, ein erfülltes Leben zu führen, ohne anderen zu schaden.</p>
+            </div>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'beratung')">Beratungsstellen</button>
+                <button class="tab" onclick="openTab(event, 'therapie')">Therapie</button>
+                <button class="tab" onclick="openTab(event, 'selbsthilfe')">Selbsthilfe</button>
+                <button class="tab" onclick="openTab(event, 'anonym')">Anonyme Hilfe</button>
+            </div>
+            
+            <div id="beratung" class="tab-content active">
+                <h2>Professionelle Beratungsstellen</h2>
+                
+                <div class="resource-card">
+                    <h3>Kein Täter werden</h3>
+                    <p>Berliner Präventionsprojekt für Menschen mit pädophilen Neigungen</p>
+                    <p><strong>Telefon:</strong> <a href="tel:030450529420">030 / 450 529 420</a> (Mo-Do 9-16 Uhr, Fr 9-14 Uhr)</p>
+                    <p><strong>E-Mail:</strong> <a href="mailto:praevention@charite.de">praevention@charite.de</a></p>
+                    <p><strong>Website:</strong> <a href="https://kein-taeter-werden.de" target="_blank">kein-taeter-werden.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Präventionsprojekt Dunkelfeld</h3>
+                    <p>Angebot des Instituts für Sexualwissenschaft und Sexualmedizin der Charité</p>
+                    <p><strong>Telefon:</strong> <a href="tel:030450529420">030 / 450 529 420</a></p>
+                    <p><strong>Website:</strong> <a href="https://www.dont-offend.org" target="_blank">www.dont-offend.org</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Präventionsnetzwerk "Kein Täter werden"</h3>
+                    <p>Bundesweites Netzwerk von Standorten mit therapeutischen Angeboten</p>
+                    <p><strong>Website:</strong> <a href="https://www.kein-taeter-werden.de" target="_blank">www.kein-taeter-werden.de</a></p>
+                </div>
+            </div>
+            
+            <div id="therapie" class="tab-content">
+                <h2>Therapeutische Hilfe</h2>
+                
+                <div class="resource-card">
+                    <h3>Deutsche Gesellschaft für Sexualforschung</h3>
+                    <p>Vermittlung von qualifizierten Therapeuten</p>
+                    <p><strong>Website:</strong> <a href="https://www.sexualwissenschaft-gesellschaft.de" target="_blank">www.sexualwissenschaft-gesellschaft.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Bundesverband für Verhaltenstherapie</h3>
+                    <p>Suche nach qualifizierten Verhaltenstherapeuten</p>
+                    <p><strong>Website:</strong> <a href="https://www.dvg-psychotherapie.de" target="_blank">www.dvg-psychotherapie.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Deutsche Gesellschaft für Psychiatrie und Psychotherapie</h3>
+                    <p>Suche nach Psychiatriern und Psychotherapeuten</p>
+                    <p><strong>Website:</strong> <a href="https://www.dgppn.de" target="_blank">www.dgppn.de</a></p>
+                </div>
+            </div>
+            
+            <div id="selbsthilfe" class="tab-content">
+                <h2>Selbsthilfe und Online-Angebote</h2>
+                
+                <div class="resource-card">
+                    <h3>Schicksal und Herausforderung</h3>
+                    <p>Selbsthilfeportal für Menschen mit pädophilen Neigungen</p>
+                    <p><strong>Website:</strong> <a href="https://www.schicksal-und-herausforderung.de" target="_blank">www.schicksal-und-herausforderung.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Stop it now! UK & Ireland</h3>
+                    <p>Internationales Präventionsprogramm (auf Englisch)</p>
+                    <p><strong>Website:</strong> <a href="https://www.stopitnow.org.uk" target="_blank">www.stopitnow.org.uk</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Online-Therapie und Beratung</h3>
+                    <p>Einige Plattformen bieten auch Online-Therapie für Menschen mit pädophilen Neigungen an.</p>
+                    <p><strong>Website:</strong> <a href="https://www.kein-taeter-geben.de" target="_blank">www.kein-taeter-geben.de</a></p>
+                </div>
+            </div>
+            
+            <div id="anonym" class="tab-content">
+                <h2>Anonyme Hilfe</h2>
+                
+                <div class="resource-card">
+                    <h3>Nummer gegen Kummer</h3>
+                    <p>Anonyme Beratung für Kinder und Jugendliche</p>
+                    <p><strong>Kinder- und Jugendtelefon:</strong> <a href="tel:116111">116 111</a> (Mo-Sa 14-20 Uhr)</p>
+                    <p><strong>Elterntelefon:</strong> <a href="tel:08001110550">0800 111 0 550</a> (Mo-Fr 9-17 Uhr, Di+Do 17-19 Uhr)</p>
+                    <p><strong>Website:</strong> <a href="https://www.nummergegenkummer.de" target="_blank">www.nummergegenkummer.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Telefonseelsorge</h3>
+                    <p>Anonyme Beratung rund um die Uhr</p>
+                    <p><strong>Telefon:</strong> <a href="tel:08001110111">0800 111 0 111</a> oder <a href="tel:08001110222">0800 111 0 222</a></p>
+                    <p><strong>Website:</strong> <a href="https://www.telefonseelsorge.de" target="_blank">www.telefonseelsorge.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Online-Beratung</h3>
+                    <p>Präventionsprojekt "Kein Täter werden" bietet auch Online-Beratung an.</p>
+                    <p><strong>Website:</strong> <a href="https://www.kein-taeter-geben.de" target="_blank">www.kein-taeter-geben.de</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Team 404. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script src="js/matrix.js"></script>
+    <script src="js/transitions.js"></script>
+</body>
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all tabs
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Show the current tab and add active class
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prävention - Team 404</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <style>
+        .prevention-section {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--matrix-green);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--matrix-green);
+            margin: 1rem auto 0;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .intro-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .prevention-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .prevention-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prevention-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+        
+        .prevention-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .prevention-card h2 {
+            color: var(--matrix-green);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .prevention-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--matrix-green);
+            transition: width 0.3s ease;
+        }
+        
+        .prevention-card:hover h2::after {
+            width: 100px;
+        }
+        
+        .prevention-card p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .prevention-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .prevention-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .prevention-card:hover .prevention-image img {
+            transform: scale(1.05);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background: transparent;
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background: var(--matrix-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--matrix-green);
+        }
+        
+        .btn i {
+            margin-left: 5px;
+        }
+        
+        .info-box {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--matrix-green);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .info-box h3 {
+            color: var(--matrix-green);
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .prevention-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .prevention-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TEAM 404</a>
+            <div class="nav-links">
+                <a href="start.html">Startseite</a>
+                <a href="team.html">Team</a>
+                <a href="social.html">Social Media</a>
+                <a href="praevention.html" class="active">Prävention</a>
+                <a href="kontakt.html">Kontakt</a>
+                <a href="opfer.html">Hilfe Opfer</a>
+                <a href="pedo.html">Hilfe Pedo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="prevention-section">
+        <h1 class="section-title">PRÄVENTION</h1>
+        
+        <div class="intro-text">
+            <p>Aufklärung und Prävention sind die wichtigsten Mittel im Kampf gegen Missbrauch. Wir entwickeln gezielte Materialien und Programme, um Kinder, Jugendliche und Erwachsene zu schützen und zu stärken.</p>
+        </div>
+        
+        <div class="prevention-grid">
+            <!-- Kinderbuch -->
+            <div class="prevention-card">
+                <h2>Unser Kinderbuch</h2>
+                <div style="text-align: center; margin: 1.5rem auto; width: fit-content;">
+                    <div style="padding: 8px; border: 2px solid var(--matrix-green); border-radius: 8px; background: rgba(0, 20, 10, 0.7);">
+                        <img src="images/cover/cover.jpg" alt="Kinderbuch gegen Missbrauch" style="max-width: 200px; width: 100%; height: auto; display: block; border-radius: 4px;">
+                    </div>
+                </div>
+                <p>Unser liebevoll gestaltetes Kinderbuch „Sicher im Cyberspace mit Team 404“ begleitet Kinder im Alter von 5–10+ Jahren auf ein spannendes Abenteuer durch die digitale Welt. Mit einem mutigen Astronauten und dem Team 404 lernen sie, Online-Gefahren zu erkennen und sich zu schützen – kindgerecht, interaktiv und mit wichtigen Botschaften über Gefühle, Grenzen und Selbstbestimmung.</p>
+                
+                <div class="info-box">
+                    <h3>Das lernen Kinder mit unserem Buch:</h3>
+                    <ul>
+                        <li>Unterschied zwischen guten und schlechten Geheimnissen</li>
+                        <li>Nein-Sagen zu unangenehmen Berührungen</n                        <li>Vertrauenspersonen erkennen und ansprechen</li>
+                        <li>Körpersicherheit und Selbstbewusstsein stärken</li>
+                    </ul>
+                </div>
+                
+                <a href="downloads/Team404_Sicher_im_Cyberspace.pdf" class="btn" style="margin-right: 10px;" download>Buch herunterladen <i class="fas fa-download"></i></a>
+                <a href="https://distrokid.com/hyperfollow/team404/sicher-im-cyber-space-mit-team-404" target="_blank" class="btn">Zum Hörbuch <i class="fas fa-headphones"></i></a>
+            </div>
+        </div>
+        
+        <div class="additional-info">
+            <h2>Weitere Präventionsangebote</h2>
+            <p>Neben unseren Materialien bieten wir auch Workshops und Schulungen für verschiedene Zielgruppen an:</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <div style="background: rgba(20, 20, 20, 0.8); padding: 1.5rem; border-left: 3px solid var(--matrix-green);">
+                    <h3 style="color: var(--matrix-green); margin-top: 0;">Für Schulen & Kitas</h3>
+                    <p>Altersgerechte Workshops zur Prävention von sexuellem Missbrauch und Stärkung des Selbstbewusstseins.</p>
+                </div>
+                <div style="background: rgba(20, 20, 20, 0.8); padding: 1.5rem; border-left: 3px solid var(--matrix-green);">
+                    <h3 style="color: var(--matrix-green); margin-top: 0;">Für Eltern & Erziehende</h3>
+                    <p>Informationsveranstaltungen und Beratung zum Schutz von Kindern und Jugendlichen.</p>
+                </div>
+                <div style="background: rgba(20, 20, 20, 0.8); padding: 1.5rem; border-left: 3px solid var(--matrix-green);">
+                    <h3 style="color: var(--matrix-green); margin-top: 0;">Für Fachkräfte</h3>
+                    <p>Fortbildungen für Pädagogen, Sozialarbeiter und andere Berufsgruppen, die mit Kindern arbeiten.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <p>Haben Sie Fragen zu unseren Präventionsangeboten oder möchten Sie eine Schulung buchen?</p>
+                <a href="kontakt.html" class="btn" style="margin-top: 1rem;">Kontakt aufnehmen</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Team 404. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script src="js/matrix.js"></script>
+    <script src="js/transitions.js"></script>
+</body>
+</html>

@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 404 - Startseite</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <style>
+        body {
+            background: #0a0a0a;
+            position: relative;
+            z-index: 1;
+        }
+        
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 5px;
+            margin: 0;
+            border: 1px solid #00ff41;
+        }
+        .map-placeholder {
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00ff41;
+            border-radius: 5px;
+            color: #00ff41;
+            font-size: 1.2rem;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 8rem;
+            position: relative;
+            background: #0a0a0a;
+            margin: 0;
+            overflow: visible;
+        }
+        
+        .welcome-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 2rem;
+        }
+        
+        .welcome-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-text, .team-text {
+            display: inline-block;
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #00ff41, #00cc33);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            position: relative;
+            line-height: 1.1;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .team-text {
+            animation-delay: 0.2s;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-subtitle {
+            color: #f0f0f0;
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .cta-button:active {
+            transform: translateY(0);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .welcome-text {
+                font-size: 2.5rem !important;
+            }
+            .team-text {
+                font-size: 3rem !important;
+            }
+            .welcome-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        .about-content {
+            max-width: 900px;
+            margin: 2rem auto 6rem;
+            padding: 3rem;
+            background: rgba(20, 20, 20, 0.98);
+            border: 1px solid #00ff41;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .about-content h2 {
+            color: #00ff41;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.7);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #00ff41;
+            box-shadow: 0 0 10px #00ff41;
+        }
+        
+        .info-box {
+            background: rgba(20, 20, 20, 0.9);
+            border-left: 3px solid #00ff41;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            transition: all 0.3s ease;
+            overflow: visible;
+            position: relative;
+        }
+        
+        .info-box:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        }
+        
+        .info-box h3 {
+            color: #00ff41;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .info-box p, .info-box li {
+            color: #f0f0f0;
+            line-height: 1.7;
+        }
+        
+        .info-box ul {
+            padding-left: 1.5rem;
+        }
+        
+        .info-box li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .info-box li::before {
+            content: '→';
+            color: #00ff41;
+            position: absolute;
+            left: -1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TEAM 404</a>
+            <div class="nav-links">
+                <a href="start.html" class="active">Startseite</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="social.html" class="nav-link">Social Media</a>
+                <a href="praevention.html" class="nav-link">Prävention</a>
+                <a href="kontakt.html" class="nav-link">Kontakt</a>
+                <a href="opfer.html" class="nav-link">Hilfe Opfer</a>
+                <a href="pedo.html" class="nav-link">Hilfe Pedo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" style="padding: 2rem 0 6rem 0;">
+        <div class="hero-content" style="padding-top: 2rem;">
+            <div class="welcome-container">
+                <h1 class="welcome-title">
+                    <span class="welcome-text">WILLKOMMEN</span>
+                    <span class="team-text">BEI TEAM 404</span>
+                </h1>
+                <div class="welcome-subtitle">Gemeinsam gegen sexuellen Missbrauch an Kindern</div>
+                <div class="welcome-cta">
+                    <a href="#cybergrooming" class="cta-button">Mehr erfahren</a>
+                </div>
+            </div>
+            <div class="about-content">
+                <h2>Gefahr der Pädophilie</h2>
+                
+                <div class="info-box">
+                    <h3>Was ist Pädophilie?</h3>
+                    <p>Pädophilie bezeichnet die sexuelle Anziehung von Erwachsenen zu Kindern.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h3>Anzeichen erkennen:</h3>
+                    <ul>
+                        <li>Missbrauch gegenüber Kindern</li>
+                        <li>Sich zurückziehen oder Geheimnisse haben</li>
+                        <li>Änderung im Verhalten</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3>Wie Sie schützen können:</h3>
+                    <ul>
+                        <li>Sprechen Sie mit Ihrem Kind über Risiken</li>
+                        <li>Ermutigen Sie zu Offenheit</li>
+                        <li>Beaufsichtigen Sie die Online-Aktivitäten</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    </section>
+    
+    <!-- Spacer -->
+    <div style="height: 30rem;" id="about-spacer"></div>
+    
+    <!-- Cybergrooming Section -->
+    <section id="cybergrooming" style="background: #0a0a0a; padding: 15rem 0 8rem; position: relative; overflow: visible; margin: 0 0 1rem 0;">
+        <div style="position: absolute; top: -60px; height: 60px; width: 100%;"></div>
+        <div style="max-width: 1000px; margin: 0 auto; padding: 2rem; background: rgba(15, 15, 15, 0.9); border: 1px solid #00ff41; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);">
+            <div style="text-align: center; margin: 6rem 0 3rem;">
+                <h2 style="color: #00ff41; margin-bottom: 1.5rem; text-shadow: 0 0 10px rgba(0, 255, 65, 0.7);">WAS IST CYBERGROOMING?</h2>
+                <p style="color: #f0f0f0; font-size: 1.1rem; line-height: 1.6;">
+                    Cybergrooming ist die gezielte Manipulation von Kindern und Jugendlichen durch Erwachsene über das Internet mit dem Ziel, sexuelle Übergriffe vorzubereiten.
+                </p>
+                <p style="color: #f0f0f0; font-size: 1.1rem; line-height: 1.6; margin-top: 1rem;">
+                    Täter nutzen Plattformen wie TikTok, Instagram, Discord oder Gaming-Chats. Sie tarnen sich, manipulieren und gehen schrittweise vor.
+                </p>
+            </div>
+            
+            <div class="grid-container" style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem;">
+                <!-- Schutzmaßnahmen -->
+                <div style="background: rgba(20, 20, 20, 0.7); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #00ff41;">
+                    <h3 style="color: #00ff41; margin-top: 0; margin-bottom: 1.2rem;">WIE DU DICH SCHÜTZEN KANNST</h3>
+                    <ul style="color: #f0f0f0; padding-left: 1.2rem; margin: 0;">
+                        <li style="margin-bottom: 0.8rem; position: relative; padding-left: 1.5rem;">
+                            <span style="position: absolute; left: 0; color: #00ff41;">›</span>
+                            Sprich mit vertrauten Personen, wenn dir etwas komisch vorkommt
+                        </li>
+                        <li style="margin-bottom: 0.8rem; position: relative; padding-left: 1.5rem;">
+                            <span style="position: absolute; left: 0; color: #00ff41;">›</span>
+                            Gib niemals private Bilder, Videos oder deinen Standort weiter
+                        </li>
+                        <li style="margin-bottom: 0.8rem; position: relative; padding-left: 1.5rem;">
+                            <span style="position: absolute; left: 0; color: #00ff41;">›</span>
+                            Blockiere und melde verdächtige Accounts sofort
+                        </li>
+                        <li style="margin-bottom: 0.8rem; position: relative; padding-left: 1.5rem;">
+                            <span style="position: absolute; left: 0; color: #00ff41;">›</span>
+                            Nutze Privatsphäre-Einstellungen konsequent
+                        </li>
+                        <li style="position: relative; padding-left: 1.5rem;">
+                            <span style="position: absolute; left: 0; color: #00ff41;">›</span>
+                            Achte auf Red Flags: zu viel Interesse, schnelle Vertrauensfragen, Heimlichkeit
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Schädliche Auswirkungen -->
+                <div style="background: rgba(20, 20, 20, 0.7); padding: 1rem; border-radius: 8px; border-left: 4px solid #ff0055; margin-top: 0.5rem;">
+                    <h3 style="color: #00a00d; margin-top: 0; margin-bottom: 1.2rem;">WIE SCHÄDLICH SIND PÄDOPHILE FÜR KINDER?</h3>
+                    <p style="color: #f0f0f0; margin: 0; line-height: 1.6;">
+                        Pädophile können gravierend negative Folgen für Kinder haben: Die erlittene sexuelle Gewalt kann zu schweren psychischen und physischen Schäden sowie zur langfristigen Traumatisierung führen.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Statistics Section with consistent spacing -->
+    <section style="background: #0a0a0a; padding: 0; position: relative; overflow: visible; margin: -6rem 0 3rem 0;">
+        <div class="chart-container" style="max-width: 1000px; margin: 0 auto; padding: 0.5rem 1.5rem 1.5rem; background: rgba(15, 15, 15, 0.9); border: 1px solid #00ff41; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);">
+            <h2 style="color: #00ff41; text-align: center; margin: 0.3rem 0 0.7rem 0; text-shadow: 0 0 10px rgba(0, 255, 65, 0.7);">Statistik Sexueller Missbrauch an Kindern 2020-2025</h2>
+            <canvas id="abuseChart" style="margin: 0 0 0.5rem 0;"></canvas>
+            <p style="color: #f0f0f0; text-align: center; margin: 1rem 0 1.5rem 0; font-style: italic;">Die Zahlen decken nur gemeldete Fälle. Die Dunkelziffer ist vermutlich deutlich höher.</p>
+            <div style="margin-top: 3rem; text-align: center;">
+                <h3 style="color: #00ff41; margin-bottom: 1rem;">Hinsehen. Melden. Schützen.</h3>
+                <p style="color: #f0f0f0;">Jeder Fall zählt. Gemeinsam stoppen wir sexuellen Missbrauch.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section with consistent spacing -->
+    <section style="background: #0a0a0a; padding: 0; position: relative; overflow: visible; margin: 0 auto 3rem; max-width: 1000px;">
+        <div style="background: rgba(15, 15, 15, 0.9); border: 1px solid #00ff41; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);">
+            <div style="text-align: center; padding: 2rem 1rem 1rem;">
+                <h2 style="color: #00ff41; margin: 0 0 1rem; text-shadow: 0 0 10px rgba(0, 255, 65, 0.7);">Gestellte Pädophile in Deutschland</h2>
+            </div>
+            <div id="map" style="width: 100%; height: 500px;">
+                <div class="map-placeholder" style="color: #00ff41; text-align: center; padding: 2rem 0;">
+                    Karte wird geladen...
+                </div>
+            </div>
+        </div>
+        <div class="standorte-container">
+            <!-- Standorte werden durch JavaScript geladen -->
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll with offset for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offset = -220; // Negative value to scroll further down
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Abuse Statistics Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('abuseChart').getContext('2d');
+            
+            // Gradient for the bars
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 255, 65, 0.8)');
+            gradient.addColorStop(1, 'rgba(0, 200, 40, 0.6)');
+            
+            const gradientHover = ctx.createLinearGradient(0, 0, 0, 400);
+            gradientHover.addColorStop(0, 'rgba(0, 255, 65, 1)');
+            gradientHover.addColorStop(1, 'rgba(0, 200, 40, 0.8)');
+            
+            // Chart configuration
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024', '2025 (Bis Juni)'],
+                    datasets: [{
+                        label: 'Gemeldete Fälle',
+                        data: [1250, 1310, 1375, 1375, 1420, 720],
+                        backgroundColor: [
+                            gradient,
+                            gradient,
+                            gradient,
+                            gradient,
+                            gradient,
+                            'rgba(0, 100, 20, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 255, 65, 1)',
+                            'rgba(0, 255, 65, 1)',
+                            'rgba(0, 255, 65, 1)',
+                            'rgba(0, 255, 65, 1)',
+                            'rgba(0, 255, 65, 1)',
+                            'rgba(0, 100, 20, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        hoverBackgroundColor: [
+                            gradientHover,
+                            gradientHover,
+                            gradientHover,
+                            gradientHover,
+                            gradientHover,
+                            'rgba(0, 100, 20, 1)'
+                        ],
+                        hoverBorderWidth: 2,
+                        hoverBorderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    layout: {
+                        padding: {
+                            top: 0
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.08)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#f0f0f0',
+                                font: {
+                                    weight: 'bold'
+                                },
+                                callback: function(value) {
+                                    return value.toLocaleString('de-DE');
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Anzahl der Fälle',
+                                color: '#f0f0f0',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                padding: {top: 0, bottom: 10}
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#f0f0f0',
+                                font: {
+                                    weight: 'bold',
+                                    size: 13
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(10, 10, 10, 0.95)',
+                            titleColor: '#00ff41',
+                            titleFont: {
+                                size: 15,
+                                weight: 'bold'
+                            },
+                            bodyColor: '#f0f0f0',
+                            bodyFont: {
+                                size: 14
+                            },
+                            borderColor: 'rgba(0, 255, 65, 0.5)',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Fälle: ' + context.parsed.y.toLocaleString('de-DE');
+                                }
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 20,
+                            right: 20,
+                            bottom: 20,
+                            left: 20
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2025 Team 404. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-tabs">
+                <button class="tab-button active" data-tab="about">Über Uns</button>
+                <button class="tab-button" data-tab="statistics">Statistiken</button>
+            </div>
+            
+            <div id="about" class="tab-content active">
+                <h2>🔍 ÜBER UNS – TEAM 404</h2>
+                <p>Team 404 ist ein unabhängiges, engagiertes Kollektiv aus Hacktivisten, Ermittlern und Aufklärern – angeführt von Marvin 404. Unser Ziel: Den Schutz von Kindern vor sexualisierter Gewalt im Netz stärken – entschlossen, faktenbasiert und mit klarem moralischen Kompass.</p>
+                
+                <p>Seit über 4 Jahren gibt sich Marvin 404 in gesicherten Online-Operationen als Kind oder Jugendlicher aus, um Pädokriminelle zu enttarnen und deren Taten zu stoppen. Die gesammelten Beweise werden direkt an die zuständigen Strafverfolgungsbehörden weitergegeben.</p>
+                
+                <div class="info-box">
+                    <h3>📌 Unsere Bilanz:</h3>
+                    <ul>
+                        <li>Über <strong>286 Täter</strong> enttarnt und überführt</li>
+                        <li>Mehr als <strong>800 Online-Anzeigen</strong> erstattet</li>
+                        <li>Zahlreiche Festnahmen durch Ermittlungsbehörden durch unsere Beweissicherung ermöglicht</li>
+                    </ul>
+                </div>
+                
+                <p>Doch wir gehen weiter: Neben der digitalen Aufklärung leisten wir aktive Präventionsarbeit – auf Demonstrationen, in Schulen und Bildungseinrichtungen in ganz Deutschland. Denn Aufklärung ist der erste Schutzschild.</p>
+                
+                <div class="divider"></div>
+                
+                <h3>Was uns auszeichnet:</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span>Konsequente Täteridentifikation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span>Rechtssichere Beweisübergabe an Behörden</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span>Prävention & Aufklärung offline und online</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✅</span>
+                        <span>Deutschlandweites Netzwerk gegen sexuelle Gewalt an Kindern</span>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <p class="highlight">Wir sind laut, wenn andere schweigen.<br>Für die Sicherheit der Schwächsten – ohne Kompromisse.</p>
+                
+                <div class="contact-info">
+                    <p>📩 <strong>Kontakt & Hinweise:</strong><br>
+                    <a href="kontakt.html" class="contact-link">Kontaktformular</a></p>
+                    <p>📍 Mehr Infos auf Social Media & vor Ort.</p>
+                </div>
+            </div>
+            
+            <div id="statistics" class="tab-content">
+                <h2>📊 Aktuelle Statistiken zu Pädophilie und Cybergrooming</h2>
+                
+                <h3>1. Anzahl pädophiler Erwachsener</h3>
+                <ul>
+                    <li>Schätzungen gehen von ca. <strong>250.000 pädophilen Männern</strong> in Deutschland aus – das entspricht etwa 1 % der männlichen Bevölkerung.</li>
+                    <li>Geschlechtsübergreifende Daten liegen nicht flächendeckend vor; prävalente Frauenanteile sind deutlich niedriger.</li>
+                </ul>
+                
+                <div class="divider"></div>
+                
+                <h3>2. Sexueller Missbrauch von Kindern allgemein</h3>
+                <ul>
+                    <li>Im Jahr 2022 gab es <strong>15.520 polizeilich gemeldete Fälle</strong> von sexuellem Kindesmissbrauch in Deutschland.</li>
+                    <li>Die WHO schätzt, dass bis zu <strong>1 Million Kinder</strong> (ca. 1–2 pro Schulklasse) bereits sexuelle Gewalt erfahren haben – die Dunkelziffer ist somit sehr hoch.</li>
+                    <li>Täglich werden im Durchschnitt <strong>54 Kinder oder Jugendliche</strong> Opfer sexueller Gewalt.</li>
+                </ul>
+                
+                <div class="divider"></div>
+                
+                <h3>3. Betroffene durch Cybergrooming</h3>
+                <ul>
+                    <li>In 2024 wurden <strong>3.457 Fälle</strong> von Cybergrooming (§ 176a Abs. 1 Nr. 3 StGB) gemeldet (2023: 2.580). Die Dunkelziffer liegt weit darüber.</li>
+                    <li>Bei Kindern und Jugendlichen zwischen 8–18 Jahren (2021) berichteten:
+                        <ul>
+                            <li><strong>24 %</strong> wurden bereits von Erwachsenen online zu Verabredungen aufgefordert</li>
+                            <li><strong>14 %</strong> wurden gebeten, sich vor einer Kamera auszuziehen</li>
+                            <li><strong>16 %</strong> wurde eine Gegenleistung für intime Inhalte angeboten</li>
+                        </ul>
+                    </li>
+                    <li>Alarmierend ist: <strong>bis zu 50 %</strong> der Tatverdächtigen bei Cybergrooming sind selbst Minderjährige.</li>
+                </ul>
+                
+                <div class="divider"></div>
+                
+                <h3>Zusammenfassung der Zahlen</h3>
+                <div class="stats-table">
+                    <div class="stats-row header">
+                        <div class="stats-cell">Kategorie</div>
+                        <div class="stats-cell">Wert/Ausmaß</div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stats-cell">Pädophile (Erwachsene in D)</div>
+                        <div class="stats-cell">ca. 250.000 Männer (~1 % der erwachsenen Männer)</div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stats-cell">Gemeldeter Kindesmissbrauch (2022)</div>
+                        <div class="stats-cell">15.520 Fälle</div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stats-cell">Dunkelziffer sexueller Gewalt</div>
+                        <div class="stats-cell">bis zu 1.000.000 Kinder</div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stats-cell">Cybergrooming-Fälle (2024)</div>
+                        <div class="stats-cell">3.457 bekannt, signifikantes Dunkelfeld</div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="info-box">
+                    <h3>🔍 Einordnung</h3>
+                    <ul>
+                        <li>Pädophilie ist klinisch eine sexuelle Präferenz; nicht jede Person begeht Missbrauch. Dennoch beträgt der Anteil stets erheblicher Taten zwischen 30–50 %.</li>
+                        <li>Cybergrooming nimmt weiterhin zu und bleibt ein unterschätztes Problem – viele Kinder geben intime Inhalte preis und setzen sich selbst in Gefahr.</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box highlight">
+                    <h3>👁 Warum diese Statistik relevant ist</h3>
+                    <ul>
+                        <li>Sie zeigt das Ausmaß der Prävalenz von sexualisierter Gewalt und digitaler Gefahr.</li>
+                        <li>Deckt eklatante Dunkelziffern auf.</li>
+                        <li>Betont den Handlungsbedarf bei Prävention und Online-Sicherheit.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: #0a0a0a;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #00ff41;
+            border-radius: 10px;
+            max-width: 900px;
+            width: 90%;
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.3);
+            position: relative;
+            color: #f0f0f0;
+            line-height: 1.7;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.4s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #00ff41;
+            text-decoration: none;
+        }
+        
+        /* Tab Styles */
+        .modal-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            color: #888;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button:hover {
+            color: #00cc33;
+            background: rgba(0, 255, 65, 0.1);
+        }
+        
+        .tab-button.active {
+            color: #00ff41;
+            border-bottom: 2px solid #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Content Styles */
+        .modal h2 {
+            color: #00ff41;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+        
+        .modal h3 {
+            color: #00cc33;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .modal p, .modal li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .modal ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .modal ul ul {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .info-box {
+            background: rgba(20, 20, 20, 0.8);
+            border-left: 3px solid #00ff41;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .info-box h3 {
+            margin-top: 0;
+            color: #00ff41;
+        }
+        
+        .info-box.highlight {
+            background: rgba(0, 40, 15, 0.5);
+            border-left: 3px solid #00ff41;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+            margin: 30px 0;
+            opacity: 0.3;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            background: rgba(0, 255, 65, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .feature-icon {
+            color: #00ff41;
+            font-size: 1.2rem;
+        }
+        
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(20, 20, 20, 0.5);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .stats-row {
+            display: flex;
+            border-bottom: 1px solid #333;
+        }
+        
+        .stats-row:last-child {
+            border-bottom: none;
+        }
+        
+        .stats-row.header {
+            background: rgba(0, 40, 15, 0.5);
+            font-weight: bold;
+        }
+        
+        .stats-cell {
+            padding: 12px 15px;
+            flex: 1;
+        }
+        
+        .highlight {
+            color: #00ff41;
+            font-weight: 500;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .contact-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 40, 15, 0.3);
+            border-radius: 5px;
+            border-left: 3px solid #00ff41;
+        }
+        
+        .contact-link {
+            color: #00ccff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-link:hover {
+            color: #00ff41;
+            text-decoration: underline;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                padding: 20px 15px;
+                margin: 10% auto;
+            }
+            
+            .modal h2 {
+                font-size: 1.5rem;
+            }
+            
+            .modal h3 {
+                font-size: 1.2rem;
+            }
+            
+            .stats-row {
+                flex-direction: column;
+            }
+            
+            .stats-cell {
+                padding: 8px 12px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the modal
+            const modal = document.getElementById("aboutModal");
+            const btn = document.querySelector(".cta-button");
+            const span = document.getElementsByClassName("close")[0];
+            
+            // When the user clicks the button, open the modal 
+            btn.onclick = function() {
+                modal.style.display = "block";
+                setTimeout(() => modal.classList.add('active'), 10);
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = "none";
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+            
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                }
+            }
+            
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Set first tab as active by default
+            if (tabButtons.length > 0) {
+                tabButtons[0].classList.add('active');
+                const firstTabId = tabButtons[0].getAttribute('data-tab');
+                if (firstTabId) {
+                    document.getElementById(firstTabId).classList.add('active');
+                }
+            }
+        });
+    </script>
+
+    <script src="js/matrix.js"></script>
+    <script src="js/transitions.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize everything after the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map first
+            const map = L.map('map', {
+                center: [51.1657, 10.4515],
+                zoom: 6,
+                zoomControl: false,
+                preferCanvas: true
+            });
+
+            // Add OpenStreetMap tiles (standard)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19,
+                minZoom: 6
+            }).addTo(map);
+
+            // Add zoom control with custom styling to stay below navbar when scrolling
+            const zoomControl = L.control.zoom({
+                position: 'topleft'
+            }).addTo(map);
+            
+            // Move the zoom control below the navbar
+            const zoomContainer = map.getContainer().querySelector('.leaflet-control-zoom');
+            if (zoomContainer) {
+                zoomContainer.style.marginTop = '80px';
+                zoomContainer.style.zIndex = '1000';
+                
+                // Make it stay in place when scrolling
+                const mapContainer = map.getContainer();
+                const updateZoomPosition = () => {
+                    const rect = mapContainer.getBoundingClientRect();
+                    if (rect.top < 0) {
+                        zoomContainer.style.position = 'fixed';
+                        zoomContainer.style.top = '20px';
+                        zoomContainer.style.left = `${rect.left + 10}px`;
+                    } else {
+                        zoomContainer.style.position = 'absolute';
+                        zoomContainer.style.top = '';
+                        zoomContainer.style.left = '';
+                    }
+                };
+                
+                window.addEventListener('scroll', updateZoomPosition);
+                window.addEventListener('resize', updateZoomPosition);
+                updateZoomPosition();
+            }
+
+            // Add scale control
+            L.control.scale({
+                imperial: false,
+                position: 'bottomright'
+            }).addTo(map);
+
+            // Disable scroll wheel zoom by default
+            map.scrollWheelZoom.disable();
+
+            // Load standorte from JSON file
+            fetch('data/standorte.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Get the standorte array from the data
+                    const standorte = data.standorte;
+                    
+                    // Check if we have any locations
+                    if (!standorte || !Array.isArray(standorte)) {
+                        throw new Error('Keine Standorte in der Datenbank gefunden');
+                    }
+                    
+                    // Add markers for each location
+                    const markers = [];
+                    
+                    standorte.forEach(location => {
+                        if (!location.koordinaten) {
+                            console.warn('Fehlende Koordinaten für Standort:', location.name);
+                            return; // Skip this location
+                        }
+                        
+                        // Create a custom green icon
+                        const greenIcon = L.icon({
+                            iconUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 52" width="24" height="39"><path fill="%2300ff41" stroke="%2300a00d" stroke-width="1.5" d="M16 1c8.3 0 15 6.7 15 15 0 10.5-13 34-15 34S1 26.5 1 16C1 7.7 7.7 1 16 1z"/><circle cx="16" cy="16" r="4.5" fill="%2300ff41" stroke="%2300a00d" stroke-width="1.5"/></svg>',
+                            iconSize: [24, 39],
+                            iconAnchor: [12, 39],
+                            popupAnchor: [0, -39],
+                            shadowUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 52" width="24" height="39"><path fill="rgba(0,0,0,0.5)" d="M16 1c8.3 0 15 6.7 15 15 0 10.5-13 34-15 34S1 26.5 1 16C1 7.7 7.7 1 16 1z"/></svg>',
+                            shadowSize: [24, 39],
+                            shadowAnchor: [12, 39]
+                        });
+
+                        const marker = L.marker(location.koordinaten, {
+                            title: location.name,
+                            icon: greenIcon
+                        }).addTo(map);
+                        
+                        markers.push(marker);
+
+                        // Create popup content
+                        const popupContent = `
+                            <div class="map-popup">
+                                <h3>${location.name || 'Unbekannter Standort'}</h3>
+                                <p>${location.adresse || ''}<br>
+                                ${location.plz || ''} ${location.stadt || ''}</p>
+                            </div>
+                        `;
+
+                        // Bind popup to marker
+                        marker.bindPopup(popupContent, {
+                            maxWidth: 300,
+                            minWidth: 200,
+                            className: 'custom-popup'
+                        });
+                    });
+                    
+                    // Fit map to show all markers with some padding
+                    if (markers.length > 0) {
+                        const group = new L.featureGroup(markers);
+                        map.fitBounds(group.getBounds().pad(0.1));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading standorte:', error);
+                    // Show error message
+                    const mapDiv = document.getElementById('map');
+                    if (mapDiv) {
+                        mapDiv.innerHTML = `
+                            <div class="map-error">
+                                <p>Karte konnte nicht geladen werden. Bitte überprüfen Sie Ihre Internetverbindung.</p>
+                                <p>${error.message}</p>
+                            </div>
+                        `;
+                    }
+                })
+                .finally(() => {
+                    // Remove placeholder
+                    const placeholder = document.querySelector('.map-placeholder');
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                    
+                    // Trigger map resize after a short delay
+                    setTimeout(() => {
+                        map.invalidateSize();
+                    }, 100);
+                });
+        });
+    </script>
+</body>
+</html>

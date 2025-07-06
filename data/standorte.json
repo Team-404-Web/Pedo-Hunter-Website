@@ -1,0 +1,194 @@
+{
+ 
+    "standorte": [
+        {
+            "name": "Berlin",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Berlin",
+            "plz": "10117",
+            "koordinaten": [52.5200, 13.4050]
+        },
+        {
+            "name": "Brandenburg",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Brandenburg an der Havel",
+            "plz": "14770",
+            "koordinaten": [52.4125, 12.5316]
+        },
+        {
+            "name": "Zwickau",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Zwickau",
+            "plz": "08056",
+            "koordinaten": [50.7186, 12.4961]
+        },
+        {
+            "name": "Dresden",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Dresden",
+            "plz": "01067",
+            "koordinaten": [51.0504, 13.7373]
+        },
+        {
+            "name": "Bautzen",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Bautzen",
+            "plz": "02625",
+            "koordinaten": [51.1805, 14.4347]
+        },
+        {
+            "name": "Emden",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Emden",
+            "plz": "26721",
+            "koordinaten": [53.3675, 7.2061]
+        },
+        {
+            "name": "Dortmund",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Dortmund",
+            "plz": "44135",
+            "koordinaten": [51.5136, 7.4653]
+        },
+        {
+            "name": "Gelsenkirchen",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Gelsenkirchen",
+            "plz": "45879",
+            "koordinaten": [51.5177, 7.0857]
+        },
+        {
+            "name": "Mölln",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Mölln",
+            "plz": "23879",
+            "koordinaten": [53.6288, 10.6871]
+        },
+        {
+            "name": "Hamburg",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Hamburg",
+            "plz": "20095",
+            "koordinaten": [53.5511, 9.9937]
+        },
+        {
+            "name": "Pinneberg",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Pinneberg",
+            "plz": "25421",
+            "koordinaten": [53.6551, 9.7982]
+        },
+        {
+            "name": "Cuxhaven",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Cuxhaven",
+            "plz": "27472",
+            "koordinaten": [53.8619, 8.6941]
+        },
+        {
+            "name": "Köln",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Köln",
+            "plz": "50667",
+            "koordinaten": [50.9375, 6.9603]
+        },
+        {
+            "name": "Dinslaken",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Dinslaken",
+            "plz": "46535",
+            "koordinaten": [51.5623, 6.7430]
+        },
+        {
+            "name": "Duisburg",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Duisburg",
+            "plz": "47051",
+            "koordinaten": [51.4344, 6.7623]
+        },
+        {
+            "name": "Saarbrücken",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Saarbrücken",
+            "plz": "66111",
+            "koordinaten": [49.2354, 6.9966]
+        },
+        {
+            "name": "Stuttgart",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Stuttgart",
+            "plz": "70173",
+            "koordinaten": [48.7758, 9.1829]
+        },
+        {
+            "name": "Ludwigsburg",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Ludwigsburg",
+            "plz": "71638",
+            "koordinaten": [48.8979, 9.1921]
+        },
+        {
+            "name": "Reutlingen",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Reutlingen",
+            "plz": "72764",
+            "koordinaten": [48.4914, 9.2043]
+        },
+        {
+            "name": "Rottweil",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Rottweil",
+            "plz": "78628",
+            "koordinaten": [48.1683, 8.6272]
+        },
+        {
+            "name": "Esslingen",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Esslingen am Neckar",
+            "plz": "73728",
+            "koordinaten": [48.7401, 9.3102]
+        },
+        {
+            "name": "Remseck",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Remseck am Neckar",
+            "plz": "71686",
+            "koordinaten": [48.8715, 9.2730]
+        },
+        {
+            "name": "Mainz",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Mainz",
+            "plz": "55116",
+            "koordinaten": [49.9929, 8.2473]
+        },
+        {
+            "name": "Kaiserslautern",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Kaiserslautern",
+            "plz": "67655",
+            "koordinaten": [49.4447, 7.7690]
+        },
+        {
+            "name": "Krefeld",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Krefeld",
+            "plz": "47798",
+            "koordinaten": [51.3397, 6.5854]
+        },
+        {
+            "name": "Bonn",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Bonn",
+            "plz": "53113",
+            "koordinaten": [50.7374, 7.0982]
+        },
+        {
+            "name": "Bremen",
+            "adresse": "Ermittlungsgebiet",
+            "stadt": "Bremen",
+            "plz": "28195",
+            "koordinaten": [53.0793, 8.8017]
+        }
+    ]
+}

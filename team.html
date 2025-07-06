@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - Team 404</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <style>
+        .team-section {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 5px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.2);
+        }
+        
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--matrix-green);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .member-name {
+            color: var(--matrix-green);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-role {
+            color: #aaa;
+            font-style: italic;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .member-bio {
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--matrix-green);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--matrix-green);
+            margin: 1rem auto 0;
+            box-shadow: var(--neon-glow);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TEAM 404</a>
+            <div class="nav-links">
+                <a href="start.html">Startseite</a>
+                <a href="team.html" class="active">Team</a>
+                <a href="social.html">Social Media</a>
+                <a href="praevention.html">Prävention</a>
+                <a href="kontakt.html">Kontakt</a>
+                <a href="opfer.html">Hilfe Opfer</a>
+                <a href="pedo.html">Hilfe Pedo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="team-section">
+        <h1 class="section-title">UNSER TEAM</h1>
+        
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="images/marvin.jpg" alt="Marvin">
+                </div>
+                <h2 class="member-name">Marvin 404</h2>
+                <span class="member-role">Gründer & Teamleiter</span>
+                <p class="member-bio">Als Gründer und Leiter von Team 404 verantwortlich für Cybersicherheitsstrategien, OSINT-Recherchen und die Koordination unserer Aufklärungsarbeit.</p>
+            </div>
+            
+            <!-- Team Member 2 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="images/odin.jpg" alt="Odin">
+                </div>
+                <h2 class="member-name">Odin</h2>
+                <span class="member-role">Eventkoordinator & Teamleitung Hannover</span>
+                <p class="member-bio">Verantwortlich für die Planung und Koordination von Veranstaltungen sowie Leiter des Eingreiftrupps in der Region Hannover.</p>
+            </div>
+            
+            <!-- Team Member 3 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="images/ingo.jpg" alt="Ingo">
+                </div>
+                <h2 class="member-name">Ingo</h2>
+                <span class="member-role">Leitung Moderation & Social Media</span>
+                <p class="member-bio">Leitet unser Moderatorenteam und ist Hauptansprechpartner für unsere TikTok-Präsenz und Community-Management.</p>
+            </div>
+            
+            <!-- Team Member 4 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="images/maik.jpg" alt="Maik">
+                </div>
+                <h2 class="member-name">Maik</h2>
+                <span class="member-role">Regionalleiter NRW & Sicherheit</span>
+                <p class="member-bio">Verantwortlich für die Koordination unserer Aktivitäten in Nordrhein-Westfalen und Leiter des regionalen Eingreiftrupps.</p>
+            </div>
+            
+            <!-- Team Member 5 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="images/richterin.jpg" alt="Richrerin">
+                </div>
+                <h2 class="member-name">Richrerin</h2>
+                <span class="member-role">Stellvertretende Leitung & Backoffice</span>
+                <p class="member-bio">Stellvertretende Leitung, verantwortlich für die Koordination des Backoffice-Teams und strategische Planung.</p>
+            </div>
+            
+            <!-- Team Member 6 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="images/sekretärin.jpg" alt="Sekretärin">
+                </div>
+                <h2 class="member-name">Sekretärin</h2>
+                <span class="member-role">Teamorganisation & Koordination</span>
+                <p class="member-bio">Verantwortlich für die interne Organisation, Terminkoordination und unterstützt die Teamleitung in operativen Belangen.</p>
+            </div>
+
+                <!-- Team Member 7 -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/mera.jpg" alt="Mera"   >
+                    </div>
+                    <h2 class="member-name">Mera</h2>
+                    <span class="member-role">Community-Managerin & Moderation</span>
+                    <p class="member-bio">Verantwortlich für die Moderation unseres Discord-Servers und die Betreuung unserer Online-Community.</p>
+                </div>
+
+                            <!-- Team Member 8 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="images/anon.jpg" alt="Anon">
+                </div>
+                <h2 class="member-name">Anon</h2>
+                <span class="member-role">Cybersecurity-Experte & OSINT-Spezialist</span>
+                <p class="member-bio">Experte für Cybersicherheit, spezialisiert auf OSINT-Recherchen, ethisches Hacken und digitale Forensik.</p>
+            </div>
+
+                 <!-- Team Member 9 -->
+                 <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/d3.jpg" alt="D3lN707B9D39">
+                    </div>
+                    <h2 class="member-name">D3lN707B9D39 (D3)</h2>
+                    <span class="member-role">Fullstack Entwickler</span>
+                    <p class="member-bio">Verantwortlich für die Entwicklung und Wartung unserer digitalen Plattformen, einschließlich Frontend- und Backend-Entwicklung.</p>
+                    <a href="https://d3ln707b9d39dev.github.io/Developer-Website/index.html" target="_blank">Developer Website</a>
+                </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Team 404. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script src="js/matrix.js"></script>
+    <script src="js/transitions.js"></script>
+</body>
+</html>

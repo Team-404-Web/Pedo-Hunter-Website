@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilfe für Opfer - Team 404</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <style>
+        .help-section {
+            max-width: 1000px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--matrix-green);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--matrix-green);
+            margin: 1rem auto 0;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .intro-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .help-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .help-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .help-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+        
+        .help-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .help-card h2 {
+            color: var(--matrix-green);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .help-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--matrix-green);
+            transition: width 0.3s ease;
+        }
+        
+        .help-card:hover h2::after {
+            width: 100px;
+        }
+        
+        .help-card ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .help-card ul li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+        
+        .emergency-box {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .emergency-box h3 {
+            color: #ff4444;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .emergency-box p {
+            margin-bottom: 1rem;
+        }
+        
+        .emergency-btn {
+            display: inline-block;
+            background: #ff0000;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .emergency-btn:hover {
+            background: #cc0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .resource-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+        }
+        
+        .resource-card h3 {
+            color: var(--matrix-green);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-card p {
+            margin: 0.5rem 0;
+            color: #aaa;
+        }
+        
+        .resource-card a {
+            color: var(--matrix-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .tab-container {
+            margin: 3rem 0;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+        
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            background: none;
+            color: #aaa;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab.active {
+            color: var(--matrix-green);
+            border-color: #333;
+            border-bottom: 1px solid var(--dark-bg);
+            margin-bottom: -1px;
+            background: var(--dark-bg);
+        }
+        
+        .tab:not(.active):hover {
+            color: #fff;
+            background: rgba(0, 255, 65, 0.1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 992px) {
+            .help-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .help-card {
+                padding: 1.5rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            
+            .tab {
+                border: 1px solid #333;
+                border-bottom: none;
+                text-align: left;
+            }
+            
+            .tab:last-child {
+                border-bottom: 1px solid #333;
+            }
+            
+            .tab.active {
+                border-bottom: 1px solid var(--dark-bg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TEAM 404</a>
+            <div class="nav-links">
+                <a href="start.html">Startseite</a>
+                <a href="team.html">Team</a>
+                <a href="social.html">Social Media</a>
+                <a href="praevention.html">Prävention</a>
+                <a href="kontakt.html">Kontakt</a>
+                <a href="opfer.html" class="active">Hilfe Opfer</a>
+                <a href="pedo.html">Hilfe Pedo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="help-section">
+        <h1 class="section-title">HILFE FÜR OPFER</h1>
+        
+        <div class="intro-text">
+            <p>Sie sind nicht allein. Wir sind für Sie da. Hier finden Sie wichtige Informationen und Anlaufstellen, die Ihnen helfen können, mit Ihrer Situation umzugehen und Unterstützung zu finden.</p>
+        </div>
+        
+        <div class="emergency-box">
+            <h3>Notfall</h3>
+            <p>Wenn Sie sich in unmittelbarer Gefahr befinden, wählen Sie bitte sofort den Notruf <strong>110</strong> oder die örtliche Polizei.</p>
+            <p>Für sofortige psychologische Hilfe können Sie sich auch an die kostenlose, anonyme und rund um die Uhr erreichbare <strong>Hilfetelefon Gewalt gegen Frauen</strong> wenden:</p>
+            <a href="tel:08000116016" class="emergency-btn">08000 116 016</a>
+        </div>
+        
+        <div class="help-container">
+            <div class="help-card">
+                <h2>Erste Schritte</h2>
+                <p>Wenn Sie Opfer von Missbrauch oder Gewalt geworden sind, ist es wichtig zu wissen, dass Sie keine Schuld tragen. Hier sind einige erste Schritte, die Sie unternehmen können:</p>
+                
+                <ul>
+                    <li><strong>Suchen Sie Sicherheit:</strong> Bringen Sie sich an einen sicheren Ort.</li>
+                    <li><strong>Vertrauen Sie sich jemandem an:</strong> Sprechen Sie mit einer Person Ihres Vertrauens.</li>
+                    <li><strong>Lassen Sie sich medizinisch versorgen:</strong> Auch wenn Sie keine sichtbaren Verletzungen haben.</li>
+                    <li><strong>Beweise sichern:</strong> Bewahren Sie Kleidung und andere Beweismittel auf.</li>
+                    <li><strong>Holen Sie sich professionelle Hilfe:</strong> Nutzen Sie die unten aufgeführten Anlaufstellen.</li>
+                </ul>
+                
+                <p>Denken Sie daran: Es ist nie zu spät, sich Hilfe zu holen, auch wenn die Tat schon länger zurückliegt.</p>
+            </div>
+            
+            <div class="help-card">
+                <h2>Ihre Rechte</h2>
+                <p>Als Opfer von Straftaten haben Sie bestimmte Rechte:</p>
+                
+                <ul>
+                    <li><strong>Recht auf Schutz:</strong> Sie haben Anspruch auf Schutz vor weiteren Übergriffen.</li>
+                    <li><strong>Recht auf Beratung:</strong> Kostenlose Beratung durch Opferhilfeeinrichtungen.</li>
+                    <li><strong>Recht auf psychosoziale Prozessbegleitung:</strong> Unterstützung während des gesamten Strafverfahrens.</li>
+                    <li><strong>Recht auf Entschädigung:</strong> Mögliche Entschädigungszahlungen nach dem Opferentschädigungsgesetz.</li>
+                    <li><strong>Recht auf Anwesenheit im Prozess:</strong> Sie haben das Recht, dem Prozess beizuwohnen.</li>
+                </ul>
+                
+                <p>Sie müssen keine Anzeige erstatten, um Unterstützung zu erhalten. Alle Beratungsstellen unterliegen der Schweigepflicht.</p>
+            </div>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'beratung')">Beratungsstellen</button>
+                <button class="tab" onclick="openTab(event, 'notruf')">Krisentelefone</button>
+                <button class="tab" onclick="openTab(event, 'selbsthilfe')">Selbsthilfe</button>
+                <button class="tab" onclick="openTab(event, 'recht')">Rechtliche Hilfe</button>
+            </div>
+            
+            <div id="beratung" class="tab-content active">
+                <h2>Beratungsstellen</h2>
+                
+                <div class="resource-card">
+                    <h3>Hilfetelefon Gewalt gegen Frauen</h3>
+                    <p>Kostenlos, vertraulich, barrierefrei, rund um die Uhr erreichbar</p>
+                    <p><strong>Telefon:</strong> <a href="tel:08000116016">08000 116 016</a></p>
+                    <p><strong>Website:</strong> <a href="https://www.hilfetelefon.de" target="_blank">www.hilfetelefon.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Weisser Ring e.V.</h3>
+                    <p>Unterstützung für Kriminalitätsopfer und deren Familien</p>
+                    <p><strong>Telefon:</strong> <a href="tel:116006">116 006</a> (kostenlos, täglich 7-22 Uhr)</p>
+                    <p><strong>Website:</strong> <a href="https://weisser-ring.de" target="_blank">weisser-ring.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Nummer gegen Kummer</h3>
+                    <p>Kostenlose Beratung für Kinder und Jugendliche</p>
+                    <p><strong>Kinder- und Jugendtelefon:</strong> <a href="tel:116111">116 111</a> (Mo-Sa 14-20 Uhr)</p>
+                    <p><strong>Elterntelefon:</strong> <a href="tel:08001110550">0800 111 0 550</a> (Mo-Fr 9-17 Uhr, Di+Do 17-19 Uhr)</p>
+                    <p><strong>Website:</strong> <a href="https://www.nummergegenkummer.de" target="_blank">www.nummergegenkummer.de</a></p>
+                </div>
+            </div>
+            
+            <div id="notruf" class="tab-content">
+                <h2>Krisentelefone</h2>
+                
+                <div class="resource-card">
+                    <h3>Polizei Notruf</h3>
+                    <p>Bei akuter Gefahr oder Notfällen</p>
+                    <p><strong>Telefon:</strong> <a href="tel:110">110</a> (kostenlos)</p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Ärztlicher Bereitschaftsdienst</h3>
+                    <p>Außerhalb der Praxiszeiten</p>
+                    <p><strong>Telefon:</strong> <a href="tel:116117">116 117</a> (kostenlos)</p>
+                    <p><strong>Website:</strong> <a href="https://www.116117.de" target="_blank">www.116117.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Hilfetelefon Sexueller Missbrauch</h3>
+                    <p>Anonyme, vertrauliche Beratung</p>
+                    <p><strong>Telefon:</strong> <a href="tel:08002255330">0800 22 55 530</a> (kostenlos, Mo-Fr 9-14 Uhr, Di+Do 15-17 Uhr)</p>
+                    <p><strong>Website:</strong> <a href="https://www.hilfeportal-missbrauch.de" target="_blank">www.hilfeportal-missbrauch.de</a></p>
+                </div>
+            </div>
+            
+            <div id="selbsthilfe" class="tab-content">
+                <h2>Selbsthilfe und Online-Angebote</h2>
+                
+                <div class="resource-card">
+                    <h3>N.I.N.A. e.V.</h3>
+                    <p>Nationale Infoline, Netzwerk und Anlaufstelle zu sexueller Gewalt an Mädchen und Jungen</p>
+                    <p><strong>Telefon:</strong> <a href="tel:08002225530">0800 22 55 530</a> (kostenlos, Mo 15-19 Uhr, Mi 9-12 Uhr, Do 15-17 Uhr)</p>
+                    <p><strong>Website:</strong> <a href="https://www.nina-info.de" target="_blank">www.nina-info.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Wildwasser e.V.</h3>
+                    <p>Fachberatungsstellen gegen sexuellen Missbrauch</p>
+                    <p><strong>Website:</strong> <a href="https://www.wildwasser.de" target="_blank">www.wildwasser.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Trau dich!</h3>
+                    <p>Initiative zur Prävention des sexuellen Kindesmissbrauchs</p>
+                    <p><strong>Website:</strong> <a href="https://www.trau-dich.de" target="_blank">www.trau-dich.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Save Me Online</h3>
+                    <p>Beratung bei sexueller Gewalt in digitalen Medien</p>
+                    <p><strong>Website:</strong> <a href="https://www.save-me-online.de" target="_blank">www.save-me-online.de</a></p>
+                </div>
+            </div>
+            
+            <div id="recht" class="tab-content">
+                <h2>Rechtliche Hilfe</h2>
+                
+                <div class="resource-card">
+                    <h3>Weisser Ring e.V.</h3>
+                    <p>Kostenlose rechtliche Erstberatung für Opfer von Straftaten</p>
+                    <p><strong>Telefon:</strong> <a href="tel:116006">116 006</a> (kostenlos, täglich 7-22 Uhr)</p>
+                    <p><strong>Website:</strong> <a href="https://weisser-ring.de" target="_blank">weisser-ring.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Opferhilfe-Bundesländer</h3>
+                    <p>Übersicht über die Opferhilfe-Einrichtungen in den Bundesländern</p>
+                    <p><strong>Website:</strong> <a href="https://www.opferhilfe.de" target="_blank">www.opferhilfe.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Bundesverband der Opferhilfe e.V.</h3>
+                    <p>Informationen zu Rechten und Hilfen für Opfer von Straftaten</p>
+                    <p><strong>Website:</strong> <a href="https://www.bv-opferhilfe.de" target="_blank">www.bv-opferhilfe.de</a></p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Opferfibel</h3>
+                    <p>Wegweiser für Opfer einer Straftat</p>
+                    <p><strong>Website:</strong> <a href="https://www.opferfibel.de" target="_blank">www.opferfibel.de</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="emergency-box">
+            <h3>Wichtiger Hinweis</h3>
+            <p>Diese Website dient der Information und ersetzt keine professionelle Beratung. Wenn Sie akut von Gewalt betroffen sind oder sich in einer Krise befinden, wenden Sie sich bitte an eine der angegebenen Notrufnummern oder suchen Sie umgehend einen Arzt auf.</p>
+            <p>Alle Beratungsangebote sind vertraulich und in der Regel kostenlos. Sie können sich auch anonym beraten lassen.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Team 404. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script src="js/matrix.js"></script>
+    <script src="js/transitions.js"></script>
+</body>
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all tabs
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Show the current tab and add active class
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+        
+        // Add dropdown functionality for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.getElementsByClassName('dropdown');
+            
+            for (let i = 0; i < dropdowns.length; i++) {
+                const dropdown = dropdowns[i];
+                const button = dropdown.querySelector('a');
+                
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                });
+            }
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.matches('.dropdown a')) {
+                    for (let i = 0; i < dropdowns.length; i++) {
+                        const dropdown = dropdowns[i];
+                        if (dropdown.classList.contains('active')) {
+                            dropdown.classList.remove('active');
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

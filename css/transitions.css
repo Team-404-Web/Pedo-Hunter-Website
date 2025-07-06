@@ -1,0 +1,87 @@
+/* Page transition effects */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+}
+
+.page-transition.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.page-transition.exiting {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Add a subtle overlay to the page during transition */
+body.transitioning {
+    overflow: hidden;
+    position: relative;
+}
+
+body.transitioning::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+body.transitioning::after {
+    opacity: 1;
+}
+
+/* Add a subtle matrix-style overlay */
+.page-transition::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(
+            to bottom,
+            rgba(0, 255, 65, 0.03) 0%,
+            transparent 10%,
+            transparent 90%,
+            rgba(0, 255, 65, 0.03) 100%
+        ),
+        linear-gradient(
+            to right,
+            rgba(0, 255, 65, 0.02) 0%,
+            transparent 10%,
+            transparent 90%,
+            rgba(0, 255, 65, 0.02) 100%
+        );
+    pointer-events: none;
+}
+
+/* Add some matrix-style digital rain effect */
+.page-transition::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="1" height="1" x="0" y="0" fill="rgba(0,255,65,0.1)" /><rect width="1" height="1" x="99" y="99" fill="rgba(0,255,65,0.1)" /></svg>');
+    opacity: 0.1;
+    pointer-events: none;
+}

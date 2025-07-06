@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Team 404</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .contact-section {
+            max-width: 1000px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            font-size: 2.5rem;
+            color: var(--matrix-green);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--matrix-green);
+            margin: 1rem auto 0;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .intro-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .form-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .contact-footer {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+        }
+        
+        .contact-info {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2.5rem;
+            height: 100%;
+        }
+        
+        .contact-info h2 {
+            color: var(--matrix-green);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--matrix-green);
+        }
+        
+        .contact-details {
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--matrix-green);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h3 {
+            margin: 0 0 0.3rem;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        .contact-text p, .contact-text a {
+            margin: 0;
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-text a:hover {
+            color: var(--matrix-green);
+        }
+        
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .social-card {
+            background: rgba(20, 20, 20, 0.7);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            max-width: 300px;
+            width: 100%;
+        }
+        
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.2);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon.discord { background: #5865F2; }
+        .social-icon.tiktok { 
+            background: #000; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icon.tiktok { 
+            background: #000;
+            color: #fff;
+            transition: all 0.3s ease;
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-icon.tiktok i {
+            font-size: 24px;
+            transition: all 0.3s ease;
+            line-height: 1;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .social-icon.tiktok:hover {
+            background: linear-gradient(45deg, #25F4EE, #FE2C55);
+            transform: scale(1.1);
+        }
+        
+        .social-icon.tiktok:hover i {
+            color: #fff;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .social-name {
+            color: var(--matrix-green);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .social-desc {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .more-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--matrix-green);
+            border: 1px solid var(--matrix-green);
+            border-radius: 5px;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .more-button:hover {
+            background: var(--matrix-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--matrix-green);
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 50%;
+            color: var(--matrix-green);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--matrix-green);
+            color: #000;
+            transform: translateY(-3px);
+        }
+        
+        .contact-form {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--matrix-green);
+            border-radius: 10px;
+            padding: 2.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+        }
+
+        .form-control option {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            padding: 0.5rem;
+        }
+
+        .form-control option:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .form-control option:checked {
+            background: var(--matrix-green);
+            color: #000;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+            /* Custom scrollbar for Webkit browsers (Chrome, Safari, newer Edge) */
+            scrollbar-width: thin;
+            scrollbar-color: var(--matrix-green) rgba(20, 20, 20, 0.7);
+        }
+        
+        /* Webkit Scrollbar Styling */
+        textarea.form-control::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        textarea.form-control::-webkit-scrollbar-track {
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 5px;
+        }
+        
+        textarea.form-control::-webkit-scrollbar-thumb {
+            background-color: var(--matrix-green);
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+        }
+        
+        textarea.form-control::-webkit-scrollbar-thumb:hover {
+            background-color: #00e676;
+        }
+        
+        /* Firefox Scrollbar Styling */
+        textarea.form-control {
+            scrollbar-width: thin;
+            scrollbar-color: var(--matrix-green) rgba(20, 20, 20, 0.7);
+        }
+        
+        .btn-submit {
+            background: transparent;
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .btn-submit:hover {
+            background: var(--matrix-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--matrix-green);
+        }
+        
+        .form-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .form-message.success {
+            background: rgba(0, 200, 83, 0.2);
+            border: 1px solid #00c853;
+            color: #69f0ae;
+        }
+        
+        .form-message.error {
+            background: rgba(255, 45, 85, 0.2);
+            border: 1px solid #ff2d55;
+            color: #ff8a80;
+        }
+        
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-info, .contact-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TEAM 404</a>
+            <div class="nav-links">
+                <a href="start.html">Startseite</a>
+                <a href="team.html">Team</a>
+                <a href="social.html">Social Media</a>
+                <a href="praevention.html">Prävention</a>
+                <a href="kontakt.html" class="active">Kontakt</a>
+                <a href="opfer.html">Hilfe Opfer</a>
+                <a href="pedo.html">Hilfe Pedo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="contact-section">
+        <h1 class="section-title">KONTAKT</h1>
+        
+        <div class="intro-text">
+            <p>Haben Sie Fragen, Anregungen oder benötigen Sie Unterstützung? Unser Team steht Ihnen gerne zur Verfügung. Nutzen Sie das Kontaktformular oder kontaktieren Sie uns direkt.</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="form-section">
+                <div class="contact-form">
+                    <form id="contactForm" action="https://formspree.io/f/mnnvdryp" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-Mail *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Betreff *</label>
+                            <select id="subject" name="subject" class="form-control" required>
+                                <option value="">Bitte wählen Sie einen Betreff</option>
+                                <option value="pravention">Präventionsanfrage von Schulen</option>
+                                <option value="demo">Demo Anfrage</option>
+                                <option value="hilfe">Hilfe</option>
+                                <option value="presse">Presseanfrage</option>
+                                <option value="sonstiges">Sonstiges Thema (eigenen Betreff eingeben)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Nachricht *</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 1.5rem;">
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 1rem;">
+                                <input type="checkbox" id="privacyPolicy" name="privacy_policy" required style="margin-right: 10px; margin-top: 3px;">
+                                <label for="privacyPolicy" style="color: #aaa; font-size: 0.85rem; line-height: 1.4;">
+                                    Ich habe die <a href="datenschutz.html" target="_blank" style="color: var(--matrix-green); text-decoration: none;">Datenschutzerklärung</a> gelesen und akzeptiere diese. 
+                                    Bitte beachten Sie, dass Nachrichten über einen externen Dienst gesendet werden. 
+                                    Geben Sie bitte keine vertraulichen Daten wie Bankverbindungen oder Passwörter an.
+                                </label>
+                            </div>
+                            <button type="submit" class="btn-submit">Nachricht senden</button>
+                        </div>
+                        
+                        <div id="formMessage" class="form-message"></div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="contact-footer">
+                <div class="contact-info">
+                    <h2>Kontaktinformationen</h2>
+                    <p>Wir freuen uns darauf, von Ihnen zu hören. Hier sind unsere Kontaktdaten:</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>E-Mail</h3>
+                                <p><a href="mailto:team404.mails@gmail.com">team404.mails@gmail.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-section">
+                    <h3>Folgen Sie uns</h3>
+
+                    <div class="social-links">
+                        <div class="social-card">
+                            <a href="https://www.tiktok.com/@0fficial404" class="social-icon tiktok" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                            <h3 class="social-name">TikTok</h3>
+                            <p class="social-desc">Folgen Sie uns auf TikTok für spannende Videos und aktuelle Einblicke in unsere Arbeit.</p>
+                            <a href="social.html" class="more-button">Weitere Kanäle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Team 404. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script src="js/matrix.js"></script>
+    <script src="js/transitions.js"></script>
+</body>
+    <script>
+        // Dropdown-Menü für Betreff
+        document.addEventListener('DOMContentLoaded', function() {
+            const subjectSelect = document.getElementById('subject');
+            const subjectInput = document.createElement('input');
+            subjectInput.type = 'text';
+            subjectInput.className = 'form-control';
+            subjectInput.style.display = 'none';
+            subjectInput.required = true;
+            
+            // Erstelle ein Label für das Eingabefeld
+            const subjectLabel = document.createElement('label');
+            subjectLabel.htmlFor = 'subject-custom';
+            subjectLabel.textContent = 'Eigenen Betreff eingeben *';
+            subjectLabel.style.display = 'none';
+            
+            // Füge das Label und das Eingabefeld zum Formular hinzu
+            const subjectGroup = subjectSelect.closest('.form-group');
+            subjectGroup.insertBefore(subjectLabel, subjectSelect);
+            subjectGroup.insertBefore(subjectInput, subjectSelect);
+            
+            // Aktualisiere das Eingabefeld basierend auf der Auswahl
+            subjectSelect.addEventListener('change', function() {
+                if (this.value === 'sonstiges') {
+                    subjectInput.style.display = 'block';
+                    subjectInput.required = true;
+                    subjectSelect.required = false;
+                    subjectLabel.style.display = 'block';
+                    subjectInput.focus();
+                } else {
+                    subjectInput.style.display = 'none';
+                    subjectInput.required = false;
+                    subjectSelect.required = true;
+                    subjectLabel.style.display = 'none';
+                }
+            });
+            
+
+
+            // Form submission handling
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Create a copy of the form data
+                const formData = new FormData(contactForm);
+                
+                // If 'Sonstiges' is selected, update the subject value with the custom input
+                if (subjectSelect.value === 'sonstiges' && subjectInput.value.trim() !== '') {
+                    const customText = subjectInput.value.trim();
+                    // Update the subject in form data
+                    formData.set('subject', 'Sonstiges: ' + customText);
+                }
+                
+                // Show loading state
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.textContent = 'Wird gesendet...';
+                submitBtn.disabled = true;
+                
+                // Send form data to Formspree
+                fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Success message
+                        formMessage.textContent = 'Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze bei Ihnen melden.';
+                        formMessage.className = 'form-message success';
+                        formMessage.style.display = 'block';
+                        contactForm.reset();
+                        
+                        // Reset subject input visibility
+                        subjectInput.style.display = 'none';
+                        subjectLabel.style.display = 'none';
+                        subjectSelect.required = true;
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    // Error message
+                    formMessage.textContent = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per E-Mail.';
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                    
+                    // Scroll to message
+                    formMessage.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Hide message after 10 seconds
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 10000);
+                });
+            });
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
